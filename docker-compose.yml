@@ -1,0 +1,42 @@
+version: "3.1"
+services:
+  app:
+    build: php
+    image: greenhouse-app
+    container_name: greenhouse-app
+    volumes:
+      - ./src:/var/www/html/
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks: 
+      - greenhouse
+    
+  db:
+    # image: mysql:5.7
+    image: mariadb:10.1.44
+    container_name: greenhouse-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - data-mysql:/var/lib/mysql
+    networks:
+      - greenhouse
+
+  adminer:
+    image: adminer
+    container_name: greenhouse-adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - greenhouse
+
+networks:
+  greenhouse:
+
+volumes:
+  data-mysql:
+    driver: local
