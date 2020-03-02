@@ -5,7 +5,7 @@ services:
     image: greenhouse-app
     container_name: greenhouse-app
     volumes:
-      - ./app:/var/www/html/
+      - ./source:/var/www/html/
     ports:
       - "80:80"
     depends_on:

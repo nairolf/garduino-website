@@ -1,6 +1,6 @@
 ### Composer template
 composer.phar
-/vendor/
+/source/vendor/
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
@@ -42,56 +42,56 @@ Temporary Items
 
 ### Symfony template
 # Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
+/source/app/cache/*
+/source/app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 
 # Email spool folder
-/app/spool/*
+/source/app/spool/*
 
 # Cache, session files and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-/var/sessions/*
+/source/var/cache/*
+/source/var/logs/*
+/source/var/sessions/*
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
 
 # Logs (Symfony4)
-/var/log/*
+/source/var/log/*
 !var/log/.gitkeep
 
 # Parameters
-/app/config/parameters.yml
-/app/config/parameters.ini
+/source/app/config/parameters.yml
+/source/app/config/parameters.ini
 
 # Managed by Composer
-/app/bootstrap.php.cache
-/var/bootstrap.php.cache
-/bin/*
+/source/app/bootstrap.php.cache
+/source/var/bootstrap.php.cache
+/source/bin/*
 !bin/console
 !bin/symfony_requirements
 
 # Assets and user uploads
-/web/bundles/
-/web/uploads/
+/source/web/bundles/
+/source/web/uploads/
 
 # PHPUnit
-/app/phpunit.xml
-/phpunit.xml
+/source/app/phpunit.xml
+/source/phpunit.xml
 
 # Build data
-/build/
+/source/build/
 
 # Composer PHAR
-/composer.phar
+/source/composer.phar
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~
 
 # Embedded web-server pid file
-/.web-server-pid
+/source/.web-server-pid
 
 ### Windows template
 # Windows thumbnail cache files
