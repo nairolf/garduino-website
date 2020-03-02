@@ -1,11 +1,11 @@
 version: "3.1"
 services:
   app:
-    build: php
+    build: docker/php
     image: greenhouse-app
     container_name: greenhouse-app
     volumes:
-      - ./src:/var/www/html/
+      - ./app:/var/www/html/
     ports:
       - "80:80"
     depends_on:
@@ -25,14 +25,14 @@ services:
     networks:
       - greenhouse
 
-  adminer:
-    image: adminer
-    container_name: greenhouse-adminer
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - greenhouse
+#  adminer:
+#    image: adminer
+#    container_name: greenhouse-adminer
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - greenhouse
 
 networks:
   greenhouse:
