@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Carbon\Carbon;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource(
- *     itemOperations={"get", "put"},
- *     shortName="temps"
+ *     itemOperations={"get", "put"}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\TemperatureRepository")
  */
@@ -40,6 +42,14 @@ class Temperature
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * Set creation time to now()   
+     */
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable();
+    }
 
     /**
      * @return mixed
@@ -86,15 +96,8 @@ class Temperature
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 }
