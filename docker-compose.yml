@@ -25,14 +25,14 @@ services:
     networks:
       - greenhouse
 
-#  adminer:
-#    image: adminer
-#    container_name: greenhouse-adminer
-#    restart: always
-#    ports:
-#      - 8080:8080
-#    networks:
-#      - greenhouse
+  adminer:
+    image: adminer
+    container_name: greenhouse-adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - greenhouse
 
 networks:
   greenhouse:
