@@ -18,6 +18,8 @@ services:
     image: mariadb:10.1.44
     container_name: greenhouse-db
     restart: always
+    ports:
+    - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: example
     volumes:
