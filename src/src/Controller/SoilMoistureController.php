@@ -23,6 +23,8 @@ class SoilMoistureController
 
     /**
      * @Route("/add", name="add_soilMoisture", methods={"POST"})
+     * @param  Request $request
+     * @return JsonResponse
      */
     public function add(Request $request): JsonResponse
     {
@@ -41,5 +43,54 @@ class SoilMoistureController
         $this->soilMoistureRepository->saveSoilMoisture($value, $sensor);
         
         return new JsonResponse(['status' => 'SoilMoisture created!'], Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/get/{id}", name="get_sensor_value", methods={"GET"})
+     * @param  int $id
+     * @return JsonResponse
+     */
+    public function getOne(int $id): JsonResponse
+    {
+        $repo = $this->soilMoistureRepository->findOneBy([
+            'id' => $id
+        ]);
+
+        if ($repo) {
+            $data = [
+                'value' => $repo->getValue(),
+                'sensor' => $repo->getSensor(),
+                'timestamp' => $repo->getTimestamp()
+            ];
+
+            return new JsonResponse($data, Response::HTTP_OK);
+        }
+
+        return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @Route("/getAll/{sensor}", name="get_all_from_sensor", methods={"GET"})
+     * @param string $sensor
+     * @return JsonResponse
+     */
+    public function getAllBySensor(string $sensor): JsonResponse
+    {
+        $values = $this->soilMoistureRepository->findBy(['sensor' => $sensor]);
+
+        if ($values) {
+            $data = [];
+            foreach ($values as $value) {
+                $data[] = [
+                    'id' => $value->getId(),
+                    'value' => $value->getValue(),
+                    'timestamp' => $value->getTimestamp()
+                ];
+            }
+
+            return new JsonResponse($data, Response::HTTP_OK);
+        }
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

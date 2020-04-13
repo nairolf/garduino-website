@@ -33,21 +33,21 @@ class SoilMoistureControllerTest extends AbstractControllerTest
         $this->assertEquals($response->getContent(), json_encode(
             ['id' => 1, 'name' => 'BMW']
         ));
-    }
+    }*/
 
     public function testSingleSoilMoistureNotFound()
     {
-        $this->client->request('GET', '/soilmoisture/1');
+        $this->client->request('GET', '/soilmoisture/get/999');
 
         $response = $this->client->getResponse();
         $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
-    }*/
+    }
 
     public function testCreateSoilMoisture()
     {
         $this->loadFixture(new SoilMoistureFixtures());
         $SoilMoistureValue = 33.3;
-        $soilMoistureSensor = 'drei';
+        $soilMoistureSensor = 'temperature01test';
         $this->client->request('POST', '/soilmoisture/add', [], [], [], json_encode([
             'value' => $SoilMoistureValue,
             'sensor' => $soilMoistureSensor
@@ -58,31 +58,14 @@ class SoilMoistureControllerTest extends AbstractControllerTest
         /** @var EntityManager $em */
         $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
         /** @var SoilMoisture $SoilMoisture */
-        $SoilMoisture = $em->getRepository(SoilMoisture::class)->findOneBy(['sensor' => 'drei']);
+        $SoilMoisture = $em->getRepository(SoilMoisture::class)->findOneBy(['sensor' => 'temperature01test']);
         $this->assertEquals($SoilMoistureValue, $SoilMoisture->getValue());
     }
 
-    // public function testDeleteSoilMoisture()
-    // {
-    //     $this->loadFixture(new SoilMoistureFixtures());
-    //     $this->client->request('DELETE', '/soilmoisture/1');
-
-    //     $response = $this->client->getResponse();
-    //     $this->assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
-    //     $this->assertEmpty($response->getContent());
-
-    //     /** @var EntityManager $em */
-    //     $em = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
-    //     /** @var SoilMoisture $SoilMoisture */
-    //     $SoilMoistures = $em->getRepository(SoilMoisture::class)->findAll();
-    //     $this->assertCount(2, $SoilMoistures);
-    // }
-
-    public function testNoEmptyParamatersAreAllowed()
+    public function testNoEmptyParametersAreAllowed()
     {
         $this->loadFixture(new SoilMoistureFixtures());
         $SoilMoistureValue = 33.3;
-        $soilMoistureSensor = 'drei';
         $this->client->request('POST', '/soilmoisture/add', [], [], [], json_encode([
             'value' => $SoilMoistureValue
         ])); 
