@@ -47,6 +47,7 @@ d3.json('/soilmoisture/getAll/temperature01').then(function(data) {
     let bottomAxis = d3.axisBottom(xScale);
     d3.select('svg')
         .append('g') //put everything inside a group
+        .attr('id', 'x-axis')
         .call(bottomAxis) //generate the axis within the group
         //move it to the bottom
         .attr('transform', 'translate(0,'+HEIGHT+')');
@@ -54,6 +55,7 @@ d3.json('/soilmoisture/getAll/temperature01').then(function(data) {
     let leftAxis = d3.axisLeft(yScale);
     d3.select('svg')
         .append('g')
+        .attr('id', 'y-axis')
         //no need to transform, since it's placed correctly initially
         .call(leftAxis);
 
@@ -65,7 +67,8 @@ d3.json('/soilmoisture/getAll/temperature01').then(function(data) {
         .attr("d", d3.line()
             .x(function(d) { return xScale(parseTime(d.timestamp)) })
             .y(function(d) { return yScale(d.value) })
-        );
+        )
+        .attr("id", "path");
 
 
     // create a tooltip
@@ -98,7 +101,7 @@ d3.json('/soilmoisture/getAll/temperature01').then(function(data) {
 
     //since no circles exist, we need to select('svg')
     //so that d3 knows where to append the new circles
-    d3.select('svg').selectAll('circle')
+    d3.select('g.points').selectAll('circle')
         .data(temperatures) //attach the data as before
         //find the data objects that have not yet
         //been attached to visual elements
@@ -115,4 +118,19 @@ d3.json('/soilmoisture/getAll/temperature01').then(function(data) {
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave);
+
+    // Zooming
+
+    let zoomCallback = function(){
+        d3.select('g.points').attr("transform", d3.event.transform);
+        d3.select('#path').attr("transform", d3.event.transform);
+        d3.select('#x-axis')
+            .call(bottomAxis.scale(d3.event.transform.rescaleX(xScale)));
+        d3.select('#y-axis')
+            .call(leftAxis.scale(d3.event.transform.rescaleY(yScale)));
+    };
+
+    let zoom = d3.zoom()
+        .on('zoom', zoomCallback);
+    d3.select('svg').call(zoom);
 });
