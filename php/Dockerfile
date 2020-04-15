@@ -3,6 +3,13 @@ FROM php:7.3-apache
 RUN apt-get update && apt-get install -y \
     git zsh vim wget zip build-essential
 
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN apt-get update && apt-get install -y nodejs
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y yarn
+
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 RUN pecl install xdebug \

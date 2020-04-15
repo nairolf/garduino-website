@@ -1,0 +1,17 @@
+// @import "~bootstrap/scss/bootstrap";
+
+body {
+  margin: 20px 40px;
+}
+
+.chart {
+  position: relative;
+}
+.chart circle {
+  r:3;
+  fill: black;
+}
+.chart>svg {
+  border: 1px solid black;
+  overflow: visible;
+}

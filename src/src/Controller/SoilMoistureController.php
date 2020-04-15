@@ -6,7 +6,6 @@ use App\Repository\SoilMoistureRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -84,7 +83,7 @@ class SoilMoistureController
                 $data[] = [
                     'id' => $value->getId(),
                     'value' => $value->getValue(),
-                    'timestamp' => $value->getTimestamp()
+                    'timestamp' => $value->getTimestamp()->format(DATE_ATOM)
                 ];
             }
 
