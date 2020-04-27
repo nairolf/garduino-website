@@ -39,4 +39,4 @@ jobs:
       #- name: Run Tests
       #  run: php bin/phpunit --coverage-text
       - name: Run php-cs-fixer
-        run: vendor/bin/php-cs-fixer fix --dry-run --diff --ansi
+        run: vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | vendor/bin/cs2pr
