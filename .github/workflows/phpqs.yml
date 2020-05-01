@@ -53,7 +53,7 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
       
       #- name: Run PHPStan
-      #  run: phpstan analyse --error-format=checkstyle source/src  | cs2pr
+      #  run: phpstan analyse --error-format=checkstyle src  | cs2pr
         
       - name: Run PHP-CS-Fixer
-        run: php-cs-fixer fix --dry-run --using-cache=false --rules=@PSR2 --format=checkstyle ./source/src | cs2pr
+        run: php-cs-fixer fix --dry-run --using-cache=false --rules=@PSR2 --format=checkstyle ./src | cs2pr
